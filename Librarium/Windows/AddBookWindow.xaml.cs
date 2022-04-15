@@ -49,6 +49,26 @@ namespace Librarium.Windows
                 MessageBox.Show("Ошибка", "Пустое поле в названии книги", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (string.IsNullOrWhiteSpace(ComboBoxLastNameAuthor.Text))
+            {
+                MessageBox.Show("Ошибка", "Пустое поле в названии книги", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(ComboBoxFirstNameAuthor.Text))
+            {
+                MessageBox.Show("Ошибка", "Пустое поле в названии книги", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(ComboBoxPublishHouse.Text))
+            {
+                MessageBox.Show("Ошибка", "Пустое поле в названии книги", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (txtTitle.Text.Length > 25)
+            {
+                MessageBox.Show("Длинновато для названия", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             DataBase.Book book = new DataBase.Book();
             book.Title = txtTitle.Text;

@@ -26,11 +26,11 @@
         </EntityType>
         <EntityType Name="BookAndGenre">
           <Key>
-            <PropertyRef Name="Book_ID" />
-            <PropertyRef Name="Genre_ID" />
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="GenreID" />
           </Key>
-          <Property Name="Book_ID" Type="int" Nullable="false" />
-          <Property Name="Genre_ID" Type="int" Nullable="false" />
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="GenreID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BookRental">
           <Key>
@@ -101,6 +101,14 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "DB_For_Librarium.dbo.Genres" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="NameGenre" />
+          </Key>
+          <Property Name="NameGenre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Book_Author">
           <End Role="Author" Type="Self.Author" Multiplicity="1" />
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
@@ -133,7 +141,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="BookAndGenre">
-              <PropertyRef Name="Book_ID" />
+              <PropertyRef Name="BookID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -145,7 +153,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="BookAndGenre">
-              <PropertyRef Name="Genre_ID" />
+              <PropertyRef Name="GenreID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -239,6 +247,11 @@
           <EntitySet Name="PublishHouse" EntityType="Self.PublishHouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Genres].[NameGenre] AS [NameGenre]
+    FROM [dbo].[Genres] AS [Genres]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Book_Author" Association="Self.FK_Book_Author">
             <End Role="Author" EntitySet="Author" />
             <End Role="Book" EntitySet="Book" />
@@ -316,6 +329,7 @@
           <EntitySet Name="PublishHouse" EntityType="DB_For_LibrariumModel.PublishHouse" />
           <EntitySet Name="Reader" EntityType="DB_For_LibrariumModel.Reader" />
           <EntitySet Name="sysdiagrams" EntityType="DB_For_LibrariumModel.sysdiagrams" />
+          <EntitySet Name="Genres" EntityType="DB_For_LibrariumModel.Genres" />
           <AssociationSet Name="FK_Book_Author" Association="DB_For_LibrariumModel.FK_Book_Author">
             <End Role="Author" EntitySet="Author" />
             <End Role="Book" EntitySet="Book" />
@@ -457,6 +471,12 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="NameGenre" />
+          </Key>
+          <Property Name="NameGenre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Book_Author">
           <End Type="DB_For_LibrariumModel.Author" Role="Author" Multiplicity="1" />
@@ -660,12 +680,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="DB_For_LibrariumModel.Genres">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="NameGenre" ColumnName="NameGenre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="BookAndGenre" TypeName="DB_For_LibrariumModel.BookAndGenre" StoreEntitySet="BookAndGenre">
             <EndProperty Name="Genre">
-              <ScalarProperty Name="ID" ColumnName="Genre_ID" />
+              <ScalarProperty Name="ID" ColumnName="GenreID" />
             </EndProperty>
             <EndProperty Name="Book">
-              <ScalarProperty Name="ID" ColumnName="Book_ID" />
+              <ScalarProperty Name="ID" ColumnName="BookID" />
             </EndProperty>
           </AssociationSetMapping>
           </EntityContainerMapping>

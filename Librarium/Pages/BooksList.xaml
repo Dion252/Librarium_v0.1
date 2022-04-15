@@ -19,8 +19,8 @@
                 <GridView>
                     <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Название книги" Width="Auto" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Фамилия автора" Width="150" DisplayMemberBinding="{Binding Author.LastName}"/>
-                    <GridViewColumn Header="Имя автора" Width="150" DisplayMemberBinding="{Binding Author.FirstName}"/>
+                    <GridViewColumn Header="Фамилия автора" Width="120" DisplayMemberBinding="{Binding Author.LastName}"/>
+                    <GridViewColumn Header="Имя автора" Width="120" DisplayMemberBinding="{Binding Author.FirstName}"/>
                     <GridViewColumn Header="Издательство" Width="Auto" DisplayMemberBinding="{Binding PublishHouse.NamePublishHouse}"/>
                 </GridView>
             </ListView.View>

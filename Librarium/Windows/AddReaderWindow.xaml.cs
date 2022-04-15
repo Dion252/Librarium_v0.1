@@ -84,7 +84,7 @@ namespace Librarium.Windows
                 MessageBox.Show("Ошибка", "Пустое поле адреса", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (numberField.Text.Length > 20 || numberField.Text.Length < 18)           //провека количества символов в номере
+            if (numberField.Text.Length > 20 || numberField.Text.Length < 10)           //провека количества символов в номере
             {
                 MessageBox.Show("Неправильное количество символов в номере телефона", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -92,6 +92,21 @@ namespace Librarium.Windows
             if (addressField.Text.Length > 50)
             {
                 MessageBox.Show("количество символов в графе адрес слишком велико", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (!emailField.Text.Contains("@"))
+            {
+                MessageBox.Show("В почте должен присутствовать символ @", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (!emailField.Text.Contains(".com") || !emailField.Text.Contains(".list") || !emailField.Text.Contains(".mail") || !emailField.Text.Contains(".io"))
+            {
+                MessageBox.Show("вы забыли дописать домен почты например: .com/.list", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (imgUser.Source == null)
+            {
+                MessageBox.Show("А фотографию читателя?", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

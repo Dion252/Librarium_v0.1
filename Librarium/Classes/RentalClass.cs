@@ -14,10 +14,12 @@ namespace Librarium.Classes
         {
 
             List<Book> list = new List<Book>();
+
             list = AppData.Context.Book.ToList();
 
 
             double sum = 0;
+
             var cost = list.Where(i => i.ID == bookId).FirstOrDefault();
 
 
@@ -29,8 +31,10 @@ namespace Librarium.Classes
 
             return (double)sum;
 
+
         }
 
 
     }
+
 }

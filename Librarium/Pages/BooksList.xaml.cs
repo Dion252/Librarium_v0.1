@@ -25,7 +25,7 @@ namespace Librarium.Pages
     {
         List<Book> bookList = new List<Book>();
 
-        List<string> listSort = new List<string>() { "По умолчанию", "По названию", "По фамилии автора", "По имени автора", "По издательству" };  
+        List<string> listSort = new List<string>() { "По умолчанию", "По названию", "По фамилии автора", "По издательству" };
         /// <summary>
         /// Добавить сортировку по автору и жанру
         /// </summary>
@@ -44,8 +44,7 @@ namespace Librarium.Pages
         {
             bookList = AppData.Context.Book.ToList();
             bookList = bookList.
-                            Where(i => i.Title.ToLower().Contains(txtSearch.Text.ToLower()) ||
-                            i.PublishHouse.NamePublishHouse.ToLower().Contains(txtSearch.Text.ToLower())).ToList();
+                            Where(i => i.Title.ToLower().Contains(txtSearch.Text.ToLower()) || i.PublishHouse.NamePublishHouse.ToLower().Contains(txtSearch.Text.ToLower())).ToList();
 
             switch (ComboBox.SelectedIndex)
             {
@@ -58,10 +57,8 @@ namespace Librarium.Pages
                 case 2:
                     bookList = bookList.OrderBy(i => i.Author.LastName).ToList();
                     break;
+                
                 case 3:
-                    bookList = bookList.OrderBy(i => i.Author.FirstName).ToList();
-                    break;
-                case 4:
                     bookList = bookList.OrderBy(i => i.PublishHouse.NamePublishHouse).ToList();
                     break;
                 default:
